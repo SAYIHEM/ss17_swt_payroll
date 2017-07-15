@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Payroll (Exam WS 2012/13) – INLOOP</title>
+  <style class="anchorjs"></style><link rel="stylesheet" type="text/css" href="Payroll%20%28Exam%20WS%202012_13%29%20%E2%80%93%20INLOOP_files/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="Payroll%20%28Exam%20WS%202012_13%29%20%E2%80%93%20INLOOP_files/bootstrap-theme.css">
+  <link rel="stylesheet" type="text/css" href="Payroll%20%28Exam%20WS%202012_13%29%20%E2%80%93%20INLOOP_files/inloop.css">
+  
+  <link rel="stylesheet" type="text/css" href="Payroll%20%28Exam%20WS%202012_13%29%20%E2%80%93%20INLOOP_files/syntax.css">
+
+</head>
+<body class="autolink">
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://inloop.inf.tu-dresden.de/">INLOOP</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        
+
+  <li><a href="https://inloop.inf.tu-dresden.de/">Home</a></li>
+  <li><a href="https://inloop.inf.tu-dresden.de/account/profile/">My Profile</a></li>
+  
+  <li><a id="logout-link" href="https://inloop.inf.tu-dresden.de/logout/">Logout</a></li>
+
+
+      </ul>
+    </div>
+    
+
+<form id="logout-form" method="post" action="/logout/">
+  <input name="csrfmiddlewaretoken" value="EDZeqSTR4fO1WGGazsKFw3ENhse2Fm9U4kpDp2aPE9zNSIVzatZnxQVodN6kDoic" type="hidden">
+</form>
+<script src="Payroll%20%28Exam%20WS%202012_13%29%20%E2%80%93%20INLOOP_files/logout.js"></script>
+
+
+  </div>
+</nav>
+
+<div class="container">
+
+
+
+
+
+<ol class="breadcrumb">
+  <li><a href="https://inloop.inf.tu-dresden.de/tasks/">Tasks</a></li>
+  <li><a href="https://inloop.inf.tu-dresden.de/tasks/category/exam/">Exam</a></li>
+  <li class="active">Payroll (Exam WS 2012/13)</li>
+</ol>
+
+<ul class="nav nav-tabs">
+  <li role="presentation" class="active">
+    <a href="https://inloop.inf.tu-dresden.de/tasks/payroll/">Description</a>
+  </li>
+  <li role="presentation">
+    <a href="https://inloop.inf.tu-dresden.de/solutions/payroll/upload">Manual upload</a>
+  </li>
+  <li role="presentation">
+    <a href="https://inloop.inf.tu-dresden.de/solutions/payroll/">Your solutions</a>
+  </li>
+</ul>
+
+<div class="static-tab-content">
+
+<h1>Payroll (Exam WS 2012/13)</h1>
+<p>In this task we will deal with a software for the monthly payroll of 
+employees in a company. This software is divided into two parts: The 
+employee management and the actual payroll management.</p>
+<p>On the employee side, we have the abstract class <code>Employee</code> with an identifier (<code>id</code>) and three abstract methods. <code>isPayDay()</code> determines whether the given day is the payday of the employee. <code>calculatePay()</code> generally determines the (gross) salary of the employee but in some cases throws an <code>UnpayableEmployeeException</code> instead (see below). Because this type of <code>Exception</code> is a so called <em>checked exception</em>, it has to be included in the method signature of <code>calculatePay()</code> via the <strong><code>throws</code></strong> keyword. Finally, <code>calculateDeductions()</code> determines the employee’s deductions, i.e. the difference between gross and net salary.</p>
+<p>As you can see in the class diagram below, <code>Employee</code> has two subclasses: <code>Volunteer</code> and <code>Appointee</code>. The basic difference is that the <code>Volunteer</code> does not receive any payment which is why he does not have a payday or any deductions. Hence, calling <code>calculatePay()</code> on a <code>Volunteer</code> causes an <code>UnpayableEmployeeException</code> to be thrown. The <code>Appointee</code>,
+ on the other hand, has a contract which requires him to work a certain 
+number of hours each month and grants him a certain hourly salary. 
+However, 40 percent of the money the <code>Appointee</code> would theoretically receive are used for things like the employee’s social insurance.</p>
+<p>The actual payroll management is done by the class <code>Payroll</code> in combination with a <code>PayrollDisposition</code>. The method <code>doPayroll()</code> retrieves the list of employees from a <code>PayrollDB</code> and calls <code>sendPayment()</code> for each <code>Employee</code> to submit the respective salary.</p>
+<p>As an example for the implementation of the interface <code>PayrollDisposition</code>, we use the class <code>PayrollDispositionImpl</code>. It keeps each sent payment in a <code>java.util.Map</code> that maps <code>Employee</code>s to their payment figure. Additionally, <code>PayrollDispositionImpl</code>
+ provides methods which calculate the total amount of money used for 
+payments as well as the average amount of money paid to the employees.</p>
+<h2 id="class-diagram">Class diagram<a style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;" data-anchorjs-icon="" aria-label="Anchor link for: class diagram" href="#class-diagram" class="anchorjs-link "></a></h2>
+<p><img alt="Class diagram" src="Payroll%20%28Exam%20WS%202012_13%29%20%E2%80%93%20INLOOP_files/Payroll_ClassDiagram.png"></p>
+<h2 id="task">Task<a style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;" data-anchorjs-icon="" aria-label="Anchor link for: task" href="#task" class="anchorjs-link "></a></h2>
+<p>Create the given interfaces and implement all of the classes above!</p>
+<h2 id="hints">Hints<a style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;" data-anchorjs-icon="" aria-label="Anchor link for: hints" href="#hints" class="anchorjs-link "></a></h2>
+<p>The most important erroneous parameter values must be handled properly. Therefore, the parameter value <code>null</code> should result in a <code>NullPointerException</code> while others like empty <code>String</code>s, non-positive/negative numbers or integers that do not make sense should cause an <code>IllegalArgumentException</code>.</p>
+<h2 id="resources">Resources<a style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;" data-anchorjs-icon="" aria-label="Anchor link for: resources" href="#resources" class="anchorjs-link "></a></h2>
+<ul>
+<li><a href="https://inloop.inf.tu-dresden.de/tasks/payroll/attachments/Payroll_tests.zip">JUnit tests</a></li>
+</ul>
+
+</div>
+
+
+</div>
+
+<footer class="footer">
+  <div class="container clearfix">
+    <ul class="list-inline footer-left">
+      <li class="text-muted">
+        © 2017 <a href="https://github.com/st-tu-dresden/inloop">@st-tu-dresden</a>
+      </li>
+    </ul>
+    <ul class="list-inline footer-right">
+
+      <li><a href="https://inloop.inf.tu-dresden.de/about/imprint/">Imprint</a></li>
+
+    </ul>
+  </div>
+</footer>
+
+<script src="Payroll%20%28Exam%20WS%202012_13%29%20%E2%80%93%20INLOOP_files/jquery.js"></script>
+<script src="Payroll%20%28Exam%20WS%202012_13%29%20%E2%80%93%20INLOOP_files/bootstrap.js"></script>
+
+<script src="Payroll%20%28Exam%20WS%202012_13%29%20%E2%80%93%20INLOOP_files/prism.js"></script>
+<script src="Payroll%20%28Exam%20WS%202012_13%29%20%E2%80%93%20INLOOP_files/prism-java.js"></script>
+<script src="Payroll%20%28Exam%20WS%202012_13%29%20%E2%80%93%20INLOOP_files/anchor.js"></script>
+<script src="Payroll%20%28Exam%20WS%202012_13%29%20%E2%80%93%20INLOOP_files/inloop.js"></script>
+
+
+
+
+</body></html>
